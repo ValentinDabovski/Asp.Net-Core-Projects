@@ -1,0 +1,43 @@
+﻿@model IEnumerable<AllPartsModel>
+@{
+    ViewData["Title"] = "All Parts";
+}
+
+<h2>@ViewData["Title"]</h2>
+<br/>
+<a asp-controller="Parts" asp-action="Add" class="btn btn-info">Add Part</a>
+<br />
+<table class="table table-bordered table-hover">
+    <thead>
+    <tr>
+        <th>Name</th>
+        <th>Price</th>
+        <th>Quantity</th>
+        <th>Supplier Name</th>
+        <th>Edit Part</th>
+        <th>Delete Part</th>
+    </tr>
+    </thead>
+    <tbody>
+    @{
+        foreach (var part in Model)
+        {
+
+            <tr>
+                <td>@part.PartName</td>
+                <td>@($"{part.PartPrice:F2}")</td>
+                <td>@part.Quantity</td>
+                <td>@part.SupplierName</td>
+                <td>
+                    <a class="btn btn-sm btn-warning" asp-action="Edit" asp-route-id="@part.Id">Edit</a> 
+                </td>
+                <td>
+                    <a class="btn btn-sm btn-danger" asp-action="Delete" asp-route-id="@part.Id">Delete</a> 
+                </td>
+            </tr>
+                
+        }
+    }
+
+    </tbody>
+</table>

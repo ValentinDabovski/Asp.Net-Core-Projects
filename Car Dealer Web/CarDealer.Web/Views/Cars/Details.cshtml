@@ -1,0 +1,29 @@
+﻿@model DetailedCarModel
+@{
+    ViewData["Title"] = "Details";
+}
+<h2>Detailed Information</h2>
+<h3>@(Model.Make) @(Model.Model)</h3>
+<h3>Travelled distance: @(Model.TravelledDistance / 1000)km</h3>
+<br />
+
+<table class="table table-striped">
+    <thead>
+    <tr>
+        <th>Part Name</th>
+        <th>Part Price</th>
+        <th></th>
+    </tr>
+    </thead>
+    <tbody>
+    @{
+        foreach (var part in Model.Parts)
+        {
+            <tr>
+                <td>@part.PartName</td>
+                <td>@part.PartPrice</td>
+            </tr>
+        }
+    }
+    </tbody>
+</table>

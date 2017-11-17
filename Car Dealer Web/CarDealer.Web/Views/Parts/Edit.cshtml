@@ -1,0 +1,45 @@
+﻿@model EditPartModel
+
+@{
+    ViewData["Title"] = "Edit Part";
+}
+
+<h2>@ViewData["Title"]</h2>
+
+
+<form class="form-group" asp-action="Edit" asp-controller="Parts" method="post">
+    <div class="row">
+        <div class="col-lg-6">
+            <label asp-for="PartName"></label>
+            <input class="form-control" readonly="readonly" asp-for="PartName" />
+            <span asp-validation-for="PartName"></span>
+        </div>
+    </div>
+    <br />
+    <div class="row">
+        <div class="col-lg-6">
+            <label asp-for="PartPrice"></label>
+            <input class="form-control" asp-for="PartPrice" />
+            <span asp-validation-for="PartPrice"></span>
+        </div>
+    </div>
+    <br />
+    <div class="row">
+        <div class="col-lg-6">
+            <label asp-for="Quantity"></label>
+            <input class="form-control" min="1" asp-for="Quantity" />
+            <span asp-validation-for="Quantity"></span>
+        </div>
+    </div>
+    <br />
+    <div class="row">
+        <div class="col-lg-6">
+            <label asp-for=SupplierName></label>
+            <input readonly="readonly" class="form-control" asp-for="SupplierName"/>
+            <span asp-validation-for="SupplierName"></span>
+        </div>
+    </div>
+    <br />
+    <a asp-action="All" class="btn btn-info">Back</a>
+    <input type="submit" class="btn btn-success" value="Edit Part" />
+</form>

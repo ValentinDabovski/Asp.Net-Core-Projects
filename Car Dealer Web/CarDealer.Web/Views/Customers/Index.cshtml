@@ -1,0 +1,15 @@
+﻿
+@{
+    ViewData["Title"] = "Customers";
+}
+<h2>Choose option to search all customers</h2>
+
+<br/>
+
+<form asp-action="all" asp-controller="customers" method="get">
+    <input type="radio" name="order" value="ascending" /> Ascending <br />
+    <input type="radio" name="order" value="descending" /> Descneding <br /> 
+    <br/>
+    <input type="submit" value="Get All Customers" class="btn btn-info"/>
+</form>
+

@@ -1,0 +1,91 @@
+﻿@model CustomerDetailedModel
+@{
+    ViewData["Title"] = "Customer Detail";
+
+    double totalMoneySpent = Model.Parts.Sum(p => p.PartPrice);
+
+    string firstName = Model.Name.Split()[0];
+}
+
+<h2>Details for cusutomer @Model.Name</h2>
+<br />
+<table class="table table-bordered table-hover">
+    <thead>
+        <tr>
+            <th>Name</th>
+            <th>Birthdate</th>
+            <th>Young Driver</th>
+            <th>Number of cars</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>@Model.Name</td>
+            <td>@Model.BirthDate.ToShortDateString()</td>
+            <td>@(Model.IsYoungDriver ? "Yes" : "No")</td>
+            <td>@Model.TotalCarsBought</td>
+        </tr>
+
+    </tbody>
+</table>
+
+@{if (Model.Cars.Any())
+    {
+        <br />
+        <h3>Cars owned by @firstName</h3>
+        <table class="table table-bordered table-hover">
+            <thead>
+                <tr>
+                    <th>Car Make</th>
+                    <th>Car Model</th>
+                    <th>Distance Travelled</th>
+
+                </tr>
+            </thead>
+            <tbody>
+                @{
+                    foreach (var cars in Model.Cars)
+                    {
+                        <tr>
+                            <td>@cars.Make</td>
+                            <td>@cars.Model</td>
+                            <td>@(cars.TravelledDistance / 1000 ) Km</td>
+                        </tr>
+                    }
+                }
+
+            </tbody>
+        </table>
+                    }
+}
+
+@{
+    if (Model.Parts.Any())
+    {
+        <br />
+        <h3>Parts bought by @firstName</h3>
+        <table class="table table-bordered table-hover">
+            <thead>
+                <tr>
+                    <th>Part Name</th>
+                    <th>Part Price</th>
+                </tr>
+            </thead>
+            <tbody>
+                @{
+                    foreach (var part in Model.Parts)
+                    {
+
+                        <tr>
+                            <td>@part.PartName</td>
+                            <td>$@part.PartPrice</td>    
+                        </tr>
+                    }
+                }
+                
+            </tbody>
+        </table>
+                    }
+}
+
+<a class="btn btn-info" asp-action="All" asp-controller="Customers">Back</a>

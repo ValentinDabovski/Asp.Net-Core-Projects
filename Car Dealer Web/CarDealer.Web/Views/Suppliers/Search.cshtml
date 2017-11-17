@@ -1,0 +1,15 @@
+﻿
+@{
+    ViewData["Title"] = "Suppliers";
+}
+
+<h2>Choose option to serach suppliers</h2>
+<br/>
+
+<form asp-action="All" asp-controller="Suppliers" method="get">
+    
+    <input type="radio" name="type" value="local"/> Local Suppliers <br/>
+    <input type="radio" name="type" value="importer"/> Importer Suppliers <br/>
+    <br/>
+    <input type="submit" value="Get All Suppliers" class="btn btn-info"/>
+</form>

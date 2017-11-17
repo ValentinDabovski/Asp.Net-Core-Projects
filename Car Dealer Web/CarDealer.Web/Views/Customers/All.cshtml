@@ -1,0 +1,38 @@
+﻿@model AllCustomersModel
+@{
+    ViewData["Title"] = "All Customers";
+}
+<h2>All Customers</h2>
+<h3>Ordered in @(Model.OrderDirection.ToString().ToLower()) direction</h3>
+<br />
+
+<table class="table table-bordered table-hover">
+    <thead>
+    <tr>
+        <th>Name</th>
+        <th>Birthdate</th>
+        <th>Is Young Driver</th>
+    </tr>
+    </thead>
+    <tbody>
+    @{
+        foreach (var customer in Model.Customers)
+        {
+            <tr>
+                <td>@customer.Name</td>
+                <td>@customer.BirthDate.ToShortDateString()</td>
+                <td>@(customer.IsYoungDriver ? "Yes" : "No")</td>
+                <td>
+                    <a asp-action="Details" class="btn btn-default" asp-route-id="@customer.Id">Details</a> 
+                    <a asp-action="Edit" class="btn btn-warning" asp-route-id="@customer.Id">Edit</a> 
+                    <a asp-action="Delete" class="btn btn-danger" asp-route-id="@customer.Id">Delete</a> 
+                    
+                </td>
+            </tr>
+        }
+    }
+ 
+    </tbody>
+</table>
+
+<a asp-controller="Customers" asp-action="Index" class="btn btn-info">Back</a>
