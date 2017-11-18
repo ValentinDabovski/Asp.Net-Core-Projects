@@ -2,13 +2,26 @@
 {
     using Microsoft.AspNetCore.Mvc;
     
+    [Route("cameras")]
     public class CameraController : Controller
     {
        
-        public IActionResult Index()
+        [HttpGet]
+        [Route(nameof(All))]
+        public IActionResult All()
         {
            
             return View();
         }
+
+
+        [HttpGet]
+        [Route(nameof(Create))]
+        public IActionResult Create()
+        {
+            return View();
+        }
+
+
     }
 }

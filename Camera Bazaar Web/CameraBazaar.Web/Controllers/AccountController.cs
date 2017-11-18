@@ -1,5 +1,8 @@
 ﻿namespace CameraBazaar.Web.Controllers
 {
+    using System;
+    using System.Security.Claims;
+    using System.Threading.Tasks;
     using CameraBazaar.Models.DataModels.Identity;
     using CameraBazaar.Models.ViewModels.Account;
     using Microsoft.AspNetCore.Authentication;
@@ -7,9 +10,7 @@
     using Microsoft.AspNetCore.Identity;
     using Microsoft.AspNetCore.Mvc;
     using Microsoft.Extensions.Logging;
-    using System;
-    using System.Security.Claims;
-    using System.Threading.Tasks;
+
 
     [Authorize]
     [Route("[controller]/[action]")]
@@ -22,12 +23,10 @@
         public AccountController(
             UserManager<User> userManager,
             SignInManager<User> signInManager,
-           
             ILogger<AccountController> logger)
         {
             this.userManager = userManager;
             this.signInManager = signInManager;
-           
             this.logger = logger;
         }
 
@@ -55,7 +54,12 @@
             {
                 // This doesn't count login failures towards account lockout
                 // To enable password failures to trigger account lockout, set lockoutOnFailure: true
-                var result = await signInManager.PasswordSignInAsync(model.Email, model.Password, model.RememberMe, lockoutOnFailure: false);
+
+                // get here user by emial to use username in signInManager.PasswordSignInAsync method.
+                
+                var user =userManager.FindByEmailAsync(model.Email).Result;
+
+                var result = await signInManager.PasswordSignInAsync(user.UserName, model.Password, model.RememberMe, lockoutOnFailure: false);
                 if (result.Succeeded)
                 {
                     logger.LogInformation("User logged in.");
@@ -214,12 +218,12 @@
             ViewData["ReturnUrl"] = returnUrl;
             if (ModelState.IsValid)
             {
-                var user = new User { UserName = model.Username, Email = model.Email,PhoneNumber = model.Phone};
+                var user = new User { UserName = model.Username, Email = model.Email, PhoneNumber = model.Phone};
                 var result = await userManager.CreateAsync(user, model.Password);
                 if (result.Succeeded)
                 {
                     logger.LogInformation("User created a new account with password.");
-                    
+
                     await signInManager.SignInAsync(user, isPersistent: false);
                     logger.LogInformation("User created a new account with password.");
                     return RedirectToLocal(returnUrl);
@@ -353,10 +357,17 @@
                 var user = await userManager.FindByEmailAsync(model.Email);
                 if (user == null || !(await userManager.IsEmailConfirmedAsync(user)))
                 {
+                    // Don't reveal that the user does not exist or is not confirmed
                     return RedirectToAction(nameof(ForgotPasswordConfirmation));
                 }
+
+                // For more information on how to enable account confirmation and password reset please
+                // visit https://go.microsoft.com/fwlink/?LinkID=532713
+
                 return RedirectToAction(nameof(ForgotPasswordConfirmation));
             }
+
+            // If we got this far, something failed, redisplay form
             return View(model);
         }
 
@@ -441,4 +452,5 @@
 
         #endregion
     }
+
 }
