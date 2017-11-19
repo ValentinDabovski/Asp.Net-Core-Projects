@@ -7,13 +7,13 @@
     using System.ComponentModel.DataAnnotations;
     using System.Collections.Generic;
 
-    public class CreateCameraBindingModel
+    public class CreateCameraBindingModel 
     {
         [Required]
         public CameraMake Make { get; set; }
 
         [Required]
-        [RegularExpression(@"([A-Z0-9-])")]
+        [RegularExpression(@"^([A-Z0-9-]+)$",ErrorMessage = "unknown model")]
         public string Model { get; set; }
 
         [Required]
@@ -47,7 +47,7 @@
 
         [Display(Name = "Light Metering")]
         [Required]
-        public IEnumerable<LightMeteringType> LightMetering { get; set; }
+        public IEnumerable<LightMetering> LightMeterings { get; set; }
 
         [MaxLength(6000)]
         public string Description { get; set; }
@@ -55,5 +55,7 @@
         [Display(Name = "Image Url")]
         [MinLength(12), MaxLength(2090)]
         public string ImageUrl { get; set; }
+
+        public string  UserId { get; set; }
     }
 }

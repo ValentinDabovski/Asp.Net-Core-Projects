@@ -6,9 +6,9 @@
     using Extensions.Attributes;
     using Identity;
     using System.ComponentModel.DataAnnotations;
-
-
-    public class Camera
+    using Intefaces.Camera;
+    
+    public class Camera : ICamera
     {
         public int Id { get; set; }
 
@@ -16,7 +16,7 @@
         public CameraMake Make { get; set; }
 
         [Required]
-        [RegularExpression(@"([A-Z0-9-])")]
+        [RegularExpression(@"^([A-Z0-9-]+)$")]
         public string Model { get; set; }
 
         [Required]
@@ -44,7 +44,7 @@
         public string VideoResolution { get; set; }
 
         [Required]
-        public LightMeteringType LightMetering { get; set; }
+        public LightMetering LightMetering { get; set; }
 
         [MaxLength(6000)]
         public string Description { get; set; }

@@ -4,9 +4,9 @@
 
     public static class EnumExtensions
     {
-        public static string ToDisplayName(this LightMeteringType lightMetering)
+        public static string ToDisplayName(this LightMetering lightMetering)
         {
-            if (lightMetering == LightMeteringType.CenterWeighted)
+            if (lightMetering == LightMetering.CenterWeighted)
             {
                 return "Center-Weighted";
             }

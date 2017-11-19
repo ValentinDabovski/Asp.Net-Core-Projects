@@ -1,7 +1,41 @@
-﻿
+﻿@model IEnumerable<AllCamerasVIewModel>
+
 @{
-    ViewBag.Title = "title";
+    ViewData["Title"] = "All Cameras";
     Layout = "_Layout";
+    var modelHasCameras = Model != null;
 }
 
-<h2>title</h2>
+<h2>@ViewData["Title"]</h2>
+
+@if (!modelHasCameras)
+{
+    <h3>No Cameras</h3>
+}
+
+<table class="table table-bordered table-hover">
+    <thead>
+    <tr>
+        <th>Image</th>
+        <th>Make</th>
+        <th>Model</th>
+        <th>Price</th>
+        <th>In Stock</th>
+    </tr>
+    </thead>
+    <tbody>
+    @{
+        foreach (var camera in Model)
+        {
+            <tr>
+                <td><img class="img-responsive img-thumbnail" src="@camera.ImageUrl" alt="camera" height="400" width="300"/></td>
+                <td>@camera.Make</td>
+                <td>@camera.Model</td>
+                <td>@camera.Price</td>
+                <td>@(camera.IsInStock ? "Yes" : "No")</td>
+            </tr>
+        }
+    }
+    </tbody>
+</table>
+

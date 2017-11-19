@@ -4,7 +4,7 @@
 
 
     [Flags]
-    public enum LightMeteringType
+    public enum LightMetering
     {
         Spot = 0,
         CenterWeighted = 1,
