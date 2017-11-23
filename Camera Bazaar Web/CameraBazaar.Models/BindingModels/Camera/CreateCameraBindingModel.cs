@@ -9,6 +9,7 @@
 
     public class CreateCameraBindingModel 
     {
+        
         [Required]
         public CameraMake Make { get; set; }
 
@@ -56,6 +57,6 @@
         [MinLength(12), MaxLength(2090)]
         public string ImageUrl { get; set; }
 
-        public string  UserId { get; set; }
+        public string UserId { get; set; }
     }
 }

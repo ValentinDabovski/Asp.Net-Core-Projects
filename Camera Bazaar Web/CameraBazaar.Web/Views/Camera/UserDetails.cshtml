@@ -1,0 +1,46 @@
+﻿@model UserDetailsViewModel
+@{
+    ViewData["Title"] = $"{Model.Username} Details";
+}
+
+<h2>@ViewData["Title"]</h2>
+
+
+<dl class="dl-horizontal">
+    <dt>Email</dt>
+    <dd>@(Model.Email)</dd>
+    <dt>Phone</dt>
+    <dd>@(Model.PhoneNumber)</dd>
+    <dt>Cameras</dt>
+    <dd>@Model.CamerasInStock in stock / @Model.CamerasOutOfStock out of stock</dd>
+</dl>
+
+@foreach (var camera in Model.UserCameras)
+{
+
+    <div class="thumbnail">
+        <img src="@camera.ImageUrl" alt="camera" height="500" width="400">
+        <div class="caption">
+            <h2>@camera.Make @camera.Model</h2>
+            <h3>@($"${camera.Price:F2}")</h3>
+            <h4>@camera.InStockDisplay()</h4>
+            <p>
+                <a asp-action="Details" asp-controller="Camera" asp-route-id="@camera.Id" class="btn btn-default" role="button">Details</a>
+            </p>
+            @{
+                if (Model.UserIsOwnerOfCameras)
+                {
+                    <p>
+
+                        <a asp-action="Edit" asp-controller="Camera" asp-route-id="@camera.Id" class="btn btn-warning" role="button">Edit</a>
+                    </p>
+                    <p>
+                        <a asp-action="Delete" asp-controller="Camera" asp-route-id="@camera.Id" class="btn btn-danger" role="button">Delete</a>
+                    </p>
+                }
+            }
+        </div>
+    </div>
+    <br />
+
+                }

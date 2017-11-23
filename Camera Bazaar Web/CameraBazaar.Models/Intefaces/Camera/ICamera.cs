@@ -1,14 +1,11 @@
 ﻿namespace CameraBazaar.Models.Intefaces.Camera
 {
-    using DataModels.Identity;
     using Enums.CameraMake;
     using Enums.Iso;
     using Enums.LightMetering;
 
     public interface ICamera
     {
-        int Id { get;}
-
         CameraMake Make { get;}
 
         string Model { get;}
@@ -35,8 +32,5 @@
         
         string ImageUrl { get;}
 
-        string UserId { get;}
-
-        User User { get;}
     }
 }

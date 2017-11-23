@@ -1,41 +1,55 @@
-﻿@model IEnumerable<AllCamerasVIewModel>
+﻿@model IEnumerable<AllCamerasViewModel>
 
 @{
     ViewData["Title"] = "All Cameras";
     Layout = "_Layout";
-    var modelHasCameras = Model != null;
+    var modelHasCameras = Model.Any();
+
+    var cameraIdRouteValue = new Dictionary<string, string>();
+
 }
 
 <h2>@ViewData["Title"]</h2>
+<div class="row">
+    <div class="col-md-4 col-lg-offset-4">
+        <form class="form-group" asp-action="All" asp-controller="Camera" method="get">
+            <input name="search" placeholder="Search cameras by make" class="form-control" />
+        </form>
+    </div>
+</div>
+<br />
 
-@if (!modelHasCameras)
-{
-    <h3>No Cameras</h3>
-}
-
-<table class="table table-bordered table-hover">
-    <thead>
-    <tr>
-        <th>Image</th>
-        <th>Make</th>
-        <th>Model</th>
-        <th>Price</th>
-        <th>In Stock</th>
-    </tr>
-    </thead>
-    <tbody>
-    @{
-        foreach (var camera in Model)
-        {
-            <tr>
-                <td><img class="img-responsive img-thumbnail" src="@camera.ImageUrl" alt="camera" height="400" width="300"/></td>
-                <td>@camera.Make</td>
-                <td>@camera.Model</td>
-                <td>@camera.Price</td>
-                <td>@(camera.IsInStock ? "Yes" : "No")</td>
-            </tr>
-        }
+@{
+    if (!modelHasCameras)
+    {
+        <h3>No Cameras</h3>
     }
-    </tbody>
-</table>
+    else
+    {
 
+        <div class="row">
+            <div class="col-md-10 col-lg-offset-2">
+
+                <div class="container-fluid">
+                    <div class="col-md-10">
+                        @foreach (var camera in Model)
+                        {
+                            <div class="thumbnail">
+                                <img src="@camera.ImageUrl" alt="camera" height="500" width="400">
+                                <div class="caption">
+                                    <h2>@camera.Make @camera.Model</h2>
+                                    <h3>@($"${camera.Price:F2}")</h3>
+                                    <h4>@camera.InStockDisplay()</h4>
+                                    <p>
+                                        <a asp-action="Details" asp-controller="Camera" asp-route-id="@camera.Id" class="btn btn-default" role="button">Details</a>
+                                    </p>
+                                </div>
+                            </div>
+                            <br />
+                        }
+                    </div>
+                </div>
+            </div>
+        </div>
+    }
+}

@@ -1,0 +1,40 @@
+﻿@model  DetailCameraView
+@{
+    ViewData["Title"] = $"Details";
+}
+
+<h2>@ViewData["Title"]</h2>
+
+
+<div class="container">
+    <div class="row">
+        <h3>@(Model.Make) @(Model.Model)- @($"${Model.Price:F2}")</h3>
+        <h3>Seller: <a asp-action="UserDetails" asp-route-userId="@Model.UserId">@Model.SellersName</a></h3>
+        <h3>@Model.InStockDisplay()</h3>
+        <img class="img-responsive" src="@Model.ImageUrl" alt="camera" height="100" width="200" />
+        <br />
+        <dl class="dl-horizontal">
+            <dt>Full Frame:</dt>
+            <dd>@(Model.IsFullFrame ? "Yes" : "No")</dd>
+            <dt>Min Shutter Speed:</dt>
+            <dd>@Model.MinShutterSpeed</dd>
+            <dt>Max Shutter Speed:</dt>
+            <dd>@Model.MaxIso</dd>
+            <dt>Min ISO:</dt>
+            <dd>@(Model.MinIso == MinIso.MinIso100 ? "ISO-100" : "ISO-50")</dd>
+            <dt>Max ISO:</dt>
+            <dd>@Model.MaxIso</dd>
+            <dt>Video Resolution:</dt>
+            <dd>@Model.VideoResolution</dd>
+            <dt>Light Metering:</dt>
+            @{
+                foreach (var lightMetering in Model.LightMeterings)
+                {
+                    <dd>-@lightMetering</dd>
+                }
+            }
+            <dt>Description:</dt>
+            <dd>@Model.Description</dd>
+        </dl>
+    </div>
+</div>

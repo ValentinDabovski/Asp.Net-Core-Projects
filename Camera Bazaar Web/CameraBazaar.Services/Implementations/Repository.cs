@@ -11,13 +11,13 @@
     public class Repository<TEntity> : IRepository<TEntity> where TEntity : class
     {
         private DbSet<TEntity> dbSet;
-    
+
         public Repository(DbSet<TEntity> dbSet)
         {
             this.dbSet = dbSet;
-           
+
         }
-        
+
         public void AddAsync(TEntity entity)
         {
             Task.Run(async () =>
@@ -33,7 +33,7 @@
             this.dbSet.Remove(entity);
         }
 
-        public TEntity FindById(int id)
+        public TEntity FindById(int? id)
         {
             TEntity entity = default(TEntity);
 

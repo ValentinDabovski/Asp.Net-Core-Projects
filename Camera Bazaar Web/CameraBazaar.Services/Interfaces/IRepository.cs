@@ -11,7 +11,7 @@
 
         void Remove(TEntity entity);
 
-        TEntity FindById(int id);
+        TEntity FindById(int? id);
 
         TEntity FirstOrDefault(Expression<Func<TEntity, bool>> expression);
 

@@ -8,7 +8,7 @@
     using System.ComponentModel.DataAnnotations;
     using Intefaces.Camera;
     
-    public class Camera : ICamera
+    public class Camera
     {
         public int Id { get; set; }
 
