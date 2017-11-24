@@ -1,12 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Mvc.Rendering;
-using Microsoft.AspNetCore.Mvc.ViewFeatures;
-
-namespace LearningSystem.Web.Views.Manage
+﻿namespace LearningSystem.Web.Views.Manage
 {
+    using System;
+    using Microsoft.AspNetCore.Mvc.Rendering;
+    using Microsoft.AspNetCore.Mvc.ViewFeatures;
+
     public static class ManageNavPages
     {
         public static string ActivePageKey => "ActivePage";
