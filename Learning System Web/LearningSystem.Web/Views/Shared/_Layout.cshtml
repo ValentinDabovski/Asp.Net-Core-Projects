@@ -1,4 +1,5 @@
-﻿<!DOCTYPE html>
+﻿@using LearningSystem.Web.Infrastructure
+<!DOCTYPE html>
 <html>
 <head>
     <meta charset="utf-8" />
@@ -31,14 +32,30 @@
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
                     <li><a asp-area="" asp-controller="Home" asp-action="Index">Home</a></li>
-                    <li><a asp-area="" asp-controller="Home" asp-action="About">About</a></li>
-                    <li><a asp-area="" asp-controller="Home" asp-action="Contact">Contact</a></li>
+                    @if (User.IsInRole(WebConstants.AdministratorRole))
+                    {
+                        <li><a asp-area="Admin" asp-controller="Users" asp-action="Index">Users</a></li>
+                    }
                 </ul>
                 @await Html.PartialAsync("_LoginPartial")
             </div>
         </div>
     </nav>
     <div class="container body-content">
+        @if (TempData.ContainsKey(WebConstants.TemDataSuccessMesageKey))
+        {
+            <div class="alert alert-success">
+                <h2>@TempData[WebConstants.TemDataSuccessMesageKey]</h2>
+            </div>
+        }
+
+        @if (TempData.ContainsKey(WebConstants.TemDataErrorMesageKey))
+        {
+            <div class="alert alert-danger">
+                <h2>@TempData[WebConstants.TemDataErrorMesageKey]</h2>
+            </div>
+        }
+
         @RenderBody()
         <hr />
         <footer>

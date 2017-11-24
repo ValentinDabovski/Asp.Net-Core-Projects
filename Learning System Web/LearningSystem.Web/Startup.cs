@@ -1,4 +1,6 @@
-﻿namespace LearningSystem.Web
+﻿using Microsoft.AspNetCore.Mvc;
+
+namespace LearningSystem.Web
 {
     using AutoMapper;
     using Data;
@@ -10,7 +12,6 @@
     using Microsoft.Extensions.Configuration;
     using Microsoft.Extensions.DependencyInjection;
     using Models.DataModels;
-    using Services;
 
     public class Startup
     {
@@ -37,12 +38,18 @@
                 .AddEntityFrameworkStores<LearningSystemDbContext>()
                 .AddDefaultTokenProviders();
 
-            // Add application services.
-            services.AddTransient<IEmailSender, EmailSender>();
+
+
+            //services.AddTransient<IEmailSender, EmailSender>();
 
             services.AddAutoMapper();
 
-            services.AddMvc();
+            services.AddDomainServices();
+            
+            services.AddMvc(options =>
+            {
+                options.Filters.Add<AutoValidateAntiforgeryTokenAttribute>();
+            });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -65,8 +72,7 @@
 
             app.UseAuthentication();
 
-
-
+            
             app.UseMvc(routes =>
             {
                 routes.MapRoute(

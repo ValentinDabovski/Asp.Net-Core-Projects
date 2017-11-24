@@ -10,7 +10,17 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="BindingModels\" />
+    <Folder Include="ViewModels\Blog\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\LearningSystem.Common\LearningSystem.Common.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Reference Include="Microsoft.AspNetCore.Mvc.ViewFeatures">
+      <HintPath>..\..\..\..\..\.nuget\packages\microsoft.aspnetcore.mvc.viewfeatures\2.0.1\lib\netstandard2.0\Microsoft.AspNetCore.Mvc.ViewFeatures.dll</HintPath>
+    </Reference>
   </ItemGroup>
 
 </Project>
