@@ -17,6 +17,7 @@
         [MaxLength(CourseDescriptionMaxLength)]
         public string Description { get; set; }
 
+        [Required]
         public string TrainerId { get; set; }
 
         public User Trainer { get; set; }

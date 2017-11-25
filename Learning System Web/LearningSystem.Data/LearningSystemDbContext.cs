@@ -38,7 +38,7 @@
                 .HasOne(t => t.Trainer)
                 .WithMany(u => u.Trainigs)
                 .HasForeignKey(t => t.TrainerId);
-             
+      
 
             builder.Entity<Article>()
                 .HasOne(a => a.Author)

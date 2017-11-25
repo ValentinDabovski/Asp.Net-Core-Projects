@@ -1,6 +1,7 @@
 ﻿@model AdminUsersViewModel
 @{
     ViewData["Title"] = "User Administration";
+
 }
 
 <h1>@ViewData["Title"]</h1>
@@ -24,13 +25,18 @@
                     <td>@user.Email</td>
                     <td>
                         <form asp-controller="Users" asp-action="AddToRole" method="post">
+                            @Html.AntiForgeryToken()
                             <div class="row">
-                                <div class="col-md-9">
-                                    <input type="hidden" name="UserId" value="@user.Id" />
+                                <div class="col-md-6">
+                                    <input type="hidden" name="UserId" value="@user.Id"/>
                                     <select name="Role" class="form-control" asp-items="@Model.Roles"></select>
                                 </div>
-                                <div class="col-md-3">
-                                    <input class="btn btn-sm btn-default" value="Add to role" type="submit" />
+                                <div class="col-md-2">
+                                    <input class="btn btn-sm btn-success" value="Add to role" type="submit"/>
+
+                                </div>
+                                <div class="col-md-2">
+                                    <input class="btn btn-sm btn-danger" asp-controller="Users" asp-area="Admin" asp-action="RemoveFromRole" value="Remove from role" type="submit"/>
                                 </div>
                             </div>
                         </form>

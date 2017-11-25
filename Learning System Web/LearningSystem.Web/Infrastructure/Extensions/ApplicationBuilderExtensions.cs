@@ -1,4 +1,6 @@
-﻿namespace LearningSystem.Web.Infrastructure.Extensions
+﻿using LearningSystem.Common.Constants;
+
+namespace LearningSystem.Web.Infrastructure.Extensions
 {
     using Data;
     using Models.DataModels;

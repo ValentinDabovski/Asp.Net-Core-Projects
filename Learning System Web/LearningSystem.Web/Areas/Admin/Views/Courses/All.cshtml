@@ -1,0 +1,54 @@
+﻿@using LearningSystem.Models.ViewModels.Admin.Courses
+@model IEnumerable<LearningSystem.Models.ViewModels.Admin.Courses.AdminAllCoursesViewModell>
+@{
+    ViewData["Title"] = "All Courses";
+}
+
+<h2>@ViewData["Title"]</h2>
+
+
+<table class="table table-bordered table-hover">
+    <thead>
+        <tr>
+            <th>Course Name</th>
+            <th>Trainer Name</th>
+            <th>Start Date</th>
+            <th>End Date</th>
+            <th>Students Count</th>
+        </tr>
+    </thead>
+    <tbody>
+        @{
+            foreach (var course in Model)
+            {
+                <tr>
+                    <td>@course.Name</td>
+                    <td>@course.TrainerName</td>
+                    <td>@course.StartDate</td>
+                    <td>@course.EndtDate</td>
+                    <td>@(course.Students.Count <= 0 ? "No students" : course.Students.Count.ToString())</td>
+                    <td>
+                        <form asp-controller="Courses" asp-action="Edit" method="get">
+                            @*@Html.AntiForgeryToken()*@
+                            <div class="row">
+                                <div class="col-md-10">
+                                    <input type="hidden" name="id" value="@course.Id" />
+
+                                </div>
+                                <div class="col-md-8">
+                                    <input class="btn btn-sm btn-warning" value="Edit" type="submit" />
+
+                                </div>
+                                <div class="col-md-4">
+                                    <input class="btn btn-sm btn-danger" asp-controller="Courses" asp-area="Admin" asp-action="Delete" value="Delete" type="submit" />
+                                </div>
+
+                            </div>
+                        </form>
+                    </td>
+
+                </tr>
+            }
+        }
+    </tbody>
+</table>
