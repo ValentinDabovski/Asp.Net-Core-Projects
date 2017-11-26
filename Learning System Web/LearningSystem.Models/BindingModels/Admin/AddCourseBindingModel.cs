@@ -1,12 +1,11 @@
-﻿using LearningSystem.Common.Mapping;
-using LearningSystem.Models.DataModels;
-
-namespace LearningSystem.Models.BindingModels.Admin
+﻿namespace LearningSystem.Models.BindingModels.Admin
 {
     using Microsoft.AspNetCore.Mvc.Rendering;
     using System;
     using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations;
+    using Common.Mapping;
+    using DataModels;
 
     using static DataConstats;
 

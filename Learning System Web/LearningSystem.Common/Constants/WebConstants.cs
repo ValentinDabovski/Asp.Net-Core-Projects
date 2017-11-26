@@ -10,5 +10,6 @@
         public const string TemDataErrorMesageKey = "ErrorMessage";
 
         public const string AdminArea = "Admin";
+        public const string BlogArea = "Blog";
     }
 }

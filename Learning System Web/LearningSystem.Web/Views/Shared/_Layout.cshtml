@@ -1,5 +1,4 @@
 ﻿@using LearningSystem.Common.Constants
-@using LearningSystem.Web.Infrastructure
 <!DOCTYPE html>
 <html>
 <head>
@@ -43,6 +42,21 @@
                             <ul role="menu" class="dropdown-menu">
                                 <li><a asp-area="Admin" asp-controller="Courses" asp-action="Create" tabindex="-1">Add Course</a></li>
                                 <li><a asp-area="Admin" asp-controller="Courses" asp-action="All" as tabindex="-1">All Courses</a></li>
+                                @*<li><a tabindex="-1" href="#">Something else here </a></li>
+                                    <li class="divider"></li>
+                                    <li><a tabindex="-1" href="#"> Separated link </a></li>*@
+                            </ul>
+                        </li>
+                    }
+                    
+                    @if (User.IsInRole(WebConstants.BlogAuthorRole) || User.IsInRole(WebConstants.AdministratorRole))
+                    {
+                        <li class="dropdown">
+                            <a href="#" data-toggle="dropdown"
+                               class="dropdown-toggle">Blog<b class="caret"></b></a>
+                            <ul role="menu" class="dropdown-menu">
+                                <li><a asp-area="Blog" asp-controller="Articles" asp-action="Create" tabindex="-1">Publish Article</a></li>
+                                <li><a asp-area="Blog" asp-controller="Articles" asp-action="All" as tabindex="-1">All Articles</a></li>
                                 @*<li><a tabindex="-1" href="#">Something else here </a></li>
                                     <li class="divider"></li>
                                     <li><a tabindex="-1" href="#"> Separated link </a></li>*@

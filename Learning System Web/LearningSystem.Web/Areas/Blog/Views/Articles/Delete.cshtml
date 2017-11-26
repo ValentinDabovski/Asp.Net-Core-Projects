@@ -1,0 +1,20 @@
+﻿@model DeleteArticleViewModel
+@{
+    ViewData["Title"] = $"Delete Article {Model.Title}";
+}
+
+<h2>@ViewData["Title"]</h2>
+
+
+<form asp-area="Blog" asp-controller="Articles" asp-action="Destroy" method="post">
+    <div class="row">
+        <div class="jumbotron">
+            <div class="text-danger">
+                <h2>Are you sure you want to delete article @Model.Title</h2> 
+            </div>
+            <input type="hidden" name="id" asp-for="Id" />
+            <input type="submit" class="btn btn-danger" value="Delete" />
+            <a asp-area="Blog" asp-controller="Articles" class="btn btn-info" asp-action="All">Go Back</a>
+        </div>
+    </div>
+</form>

@@ -1,0 +1,33 @@
+﻿@model IEnumerable<AllArticlesViewModel>
+@{
+    ViewData["Title"] = "All Articles";
+}
+
+
+
+<hr />
+
+@if (!Model.Any())
+{
+   <h2>No articles</h2>
+}
+ 
+@foreach (var article in Model)
+{
+
+<div class="row">
+    <div lass="col-md-4">
+        <div class="thumbnail">
+            <h2><b>@article.Title</b></h2>
+            <p>Written by @article.AuthorName</p>
+
+            <form asp-area="Blog" asp-controller="Articles" asp-action="Edit" method="get">
+                <input name="id" asp-for="@article.Id" type="hidden" />
+                <input type="submit" class="btn btn-sm btn-info" value="Edit" />
+                <input type="submit" class="btn btn-sm btn-danger" value="Delete" asp-area="Blog" asp-controller="Articles" asp-action="Delete" />
+            </form>
+        </div>
+    </div>
+</div>
+}
+

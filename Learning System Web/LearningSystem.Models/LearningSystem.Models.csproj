@@ -10,10 +10,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="ViewModels\Blog\" />
-  </ItemGroup>
-
-  <ItemGroup>
     <ProjectReference Include="..\LearningSystem.Common\LearningSystem.Common.csproj" />
   </ItemGroup>
 
