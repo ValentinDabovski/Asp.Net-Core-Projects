@@ -1,33 +1,70 @@
-﻿@model IEnumerable<AllArticlesViewModel>
+﻿@model ArticleListingViewModel
 @{
     ViewData["Title"] = "All Articles";
+
 }
-
-
 
 <hr />
 
-@if (!Model.Any())
+@if (!Model.Articles.Any())
 {
-   <h2>No articles</h2>
+    <h2>No articles</h2>
 }
- 
-@foreach (var article in Model)
+
+
+
+@foreach (var article in Model.Articles)
 {
 
-<div class="row">
-    <div lass="col-md-4">
-        <div class="thumbnail">
-            <h2><b>@article.Title</b></h2>
-            <p>Written by @article.AuthorName</p>
+    <div class="row">
+        <div lass="col-md-4">
+            <div class="thumbnail">
+                <h2><b>@article.Title</b></h2>
+                <p>Written by @article.AuthorName</p>
 
-            <form asp-area="Blog" asp-controller="Articles" asp-action="Edit" method="get">
-                <input name="id" asp-for="@article.Id" type="hidden" />
-                <input type="submit" class="btn btn-sm btn-info" value="Edit" />
-                <input type="submit" class="btn btn-sm btn-danger" value="Delete" asp-area="Blog" asp-controller="Articles" asp-action="Delete" />
-            </form>
+                <a class="btn btn-sm btn-info" asp-action="Details" asp-route-id="@article.Id" asp-route-title="@article.Title.ToFirendlyUrl()">Read More</a>
+
+                @if (User.IsInRole(WebConstants.AdministratorRole) || User.IsInRole(WebConstants.BlogAuthorRole))
+                {
+                    <form asp-area="Blog" asp-controller="Articles" asp-action="Edit" method="get">
+                        <input name="id" asp-for="@article.Id" type="hidden" />
+                        <input type="submit" class="btn btn-sm btn-warning" value="Edit" />
+                        <input type="submit" class="btn btn-sm btn-danger" value="Delete" asp-area="Blog" asp-controller="Articles" asp-action="Delete" />
+                    </form>
+                }
+                <br />
+            </div>
         </div>
     </div>
-</div>
 }
+
+@if (Model.TotalArticles > Model.Articles.Count())
+{
+    <ul class="pager">
+        <li class=@(Model.CurrentPage == 1 ? "disabled" : string.Empty)>
+            <a asp-area="Blog"
+               asp-controller="Articles"
+               asp-action="All"
+               asp-route-page="@Model.PreviousPage"
+               aria-label="Previous">
+                <span aria-hidden="true">&laquo;</span>
+                Previous
+            </a>
+        </li>
+        <li class="@(Model.CurrentPage == Model.TotalPages ? "disabled" : string.Empty)">
+            <a asp-area="Blog"
+               asp-controller="Articles"
+               asp-action="All"
+               asp-route-page="@Model.NextPage">
+                Next
+                <span aria-hidden="true">&raquo;</span>
+
+            </a>
+        </li>
+    </ul>
+
+
+}
+
+
 

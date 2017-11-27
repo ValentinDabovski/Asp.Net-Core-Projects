@@ -1,0 +1,15 @@
+﻿@model DetailedArticleViewModel
+@{
+    ViewData["Title"] = $"{@Model.Title}";
+}
+
+<h2>@ViewData["Title"]</h2>
+
+<h4><em>Published by @Model.AuthorName on @Model.PublishDate.ToShortDateString()</em></h4>
+
+
+<div>
+    @Html.Raw(Model.Content)
+</div>
+
+<a asp-action="All" class="btn btn-sm btn-info">Go Back</a>

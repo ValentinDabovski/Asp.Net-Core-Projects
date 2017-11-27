@@ -63,6 +63,12 @@
                             </ul>
                         </li>
                     }
+                    else
+                    {
+                        <li>
+                            <a  asp-area="Blog" asp-controller="Articles" asp-action="All">Blog</a>
+                        </li>
+                    }
                 </ul>
                 @await Html.PartialAsync("_LoginPartial")
             </div>

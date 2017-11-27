@@ -1,6 +1,4 @@
-﻿using Ganss.XSS;
-using LearningSystem.Models.ViewModels.Blog;
-using LearningSystem.Services.Html;
+﻿using Microsoft.AspNetCore.Authorization;
 
 namespace LearningSystem.Web.Areas.Blog.Controllers
 {
@@ -12,6 +10,9 @@ namespace LearningSystem.Web.Areas.Blog.Controllers
     using Microsoft.AspNetCore.Identity;
     using Infrastructure.Extensions;
     using Microsoft.AspNetCore.Mvc;
+    using Models.ViewModels.Blog;
+    using Services.Html;
+
     using static Common.Constants.WebConstants;
 
     [Area(BlogArea)]
@@ -22,18 +23,26 @@ namespace LearningSystem.Web.Areas.Blog.Controllers
         private readonly IArticlesControllerService service;
         private readonly IHtmlService htmlService;
 
-        public ArticlesController(UserManager<User> userManager, IArticlesControllerService service,IHtmlService htmlService)
+        public ArticlesController(UserManager<User> userManager, IArticlesControllerService service, IHtmlService htmlService)
         {
             this.userManager = userManager;
             this.service = service;
             this.htmlService = htmlService;
         }
 
+        
+        [AllowAnonymous]
         [HttpGet]
-        public async Task<IActionResult> All()
+        public async Task<IActionResult> All(int page = 1)
         {
-            var viewModel = await this.service.AllArticlesAsync();
-            return View(viewModel);
+            var viewModels = await this.service.AllArticlesAsync(page);
+            return View(new ArticleListingViewModel()
+            {
+                Articles = viewModels,
+                TotalArticles = await this.service.TotalAsync(),
+                CurrentPage = page,
+
+            });
         }
 
         [HttpGet]
@@ -45,12 +54,11 @@ namespace LearningSystem.Web.Areas.Blog.Controllers
 
         [HttpPost]
         public async Task<IActionResult> Create(CreateArticleBindingModel articleModel)
-        { 
+        {
             var author = await this.userManager.GetUserAsync(this.User);
             var userInBlogAuthorRole = await this.userManager.IsInRoleAsync(author, BlogAuthorRole);
 
-            var sanitaziedHtml = this.htmlService.Sanitize(articleModel.Content);
-            articleModel.Content = sanitaziedHtml;
+            articleModel.Content = this.htmlService.Sanitize(articleModel.Content);
 
             if (!ModelState.IsValid)
             {
@@ -67,6 +75,21 @@ namespace LearningSystem.Web.Areas.Blog.Controllers
 
             TempData.AddSuccessMessage("Succsessfully posted article.");
             return RedirectToAction(nameof(All));
+        }
+
+        [AllowAnonymous]
+        [HttpGet]
+        public async Task<IActionResult> Details(int id)
+        {
+            var viewModel = await this.service.DetailedArticleAsync(id);
+
+            if (viewModel == null)
+            {
+                TempData.AddErrorMessage("No such article.");
+                return RedirectToAction(nameof(All));
+            }
+
+            return View(viewModel);
         }
 
         [HttpGet]

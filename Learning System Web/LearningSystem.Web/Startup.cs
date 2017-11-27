@@ -42,10 +42,17 @@ namespace LearningSystem.Web
 
             //services.AddTransient<IEmailSender, EmailSender>();
 
+           
+
             services.AddAutoMapper();
 
             services.AddDomainServices();
-            
+
+            services.AddRouting(options =>
+            {
+                options.LowercaseUrls = true;
+            });
+
             services.AddMvc(options =>
             {
                 options.Filters.Add<AutoValidateAntiforgeryTokenAttribute>();
@@ -75,6 +82,12 @@ namespace LearningSystem.Web
             
             app.UseMvc(routes =>
             {
+                routes.MapRoute(
+                    name:"blog",
+                    template: "blog/articles/{id}/{title}",
+                    defaults: new {area="Blog", controller = "Articles", action = "Details"}
+                );
+
                 routes.MapRoute(
                    name: "areas",
                    template: "{area:exists}/{controller=Home}/{action=Index}/{id?}");

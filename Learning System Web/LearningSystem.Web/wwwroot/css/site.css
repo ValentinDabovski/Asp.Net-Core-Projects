@@ -10,6 +10,10 @@
     padding-right: 15px;
 }
 
+.pager li.disabled a {
+    pointer-events: none;
+}
+
 /* Carousel */
 .carousel-caption p {
     font-size: 20px;

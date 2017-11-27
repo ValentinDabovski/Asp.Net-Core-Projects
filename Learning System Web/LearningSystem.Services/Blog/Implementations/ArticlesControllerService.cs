@@ -1,22 +1,20 @@
-﻿using LearningSystem.Services.Html;
-
-namespace LearningSystem.Services.Blog.Implementations
+﻿namespace LearningSystem.Services.Blog.Implementations
 {
-    using System;
-    using System.Collections.Generic;
-    using System.Threading.Tasks;
+    using AutoMapper.QueryableExtensions;
     using Data;
+    using Inetrfaces;
+    using Microsoft.AspNetCore.Identity;
+    using Microsoft.EntityFrameworkCore;
     using Models.BindingModels.Blog;
     using Models.DataModels;
     using Models.ViewModels.Blog;
-    using Inetrfaces;
-    using Microsoft.AspNetCore.Identity;
-    using AutoMapper.QueryableExtensions;
-    using Microsoft.EntityFrameworkCore;
+    using System;
+    using System.Collections.Generic;
     using System.Linq;
+    using System.Threading.Tasks;
+    using static Models.DataConstats;
 
-
-    public class ArticlesControllerService : IArticlesControllerService 
+    public class ArticlesControllerService : IArticlesControllerService
     {
         private readonly LearningSystemDbContext db;
         private readonly UserManager<User> userManager;
@@ -25,7 +23,7 @@ namespace LearningSystem.Services.Blog.Implementations
         {
             this.db = db;
             this.userManager = userManager;
-     
+
         }
 
 
@@ -44,10 +42,16 @@ namespace LearningSystem.Services.Blog.Implementations
             await this.db.SaveChangesAsync();
         }
 
-        public async Task<IEnumerable<AllArticlesViewModel>> AllArticlesAsync()
+        public async Task<IEnumerable<AllArticlesViewModel>> AllArticlesAsync(int page = 1)
         {
-            var allArticles = await this.db
-                .Articles.ProjectTo<AllArticlesViewModel>()
+            var allArticles = await
+                this
+                .db
+                .Articles
+                .OrderByDescending(a => a.PublishDate)
+                .Skip((page - 1) * ArticlePageSize)
+                .Take(ArticlePageSize)
+                .ProjectTo<AllArticlesViewModel>()
                 .ToListAsync();
 
             return allArticles;
@@ -114,12 +118,34 @@ namespace LearningSystem.Services.Blog.Implementations
             return false;
         }
 
+        public async Task<int> TotalAsync()
+        {
+            return await this.db.Articles.CountAsync();
+        }
+
+        public async Task<DetailedArticleViewModel> DetailedArticleAsync(int id)
+        {
+            var articleExists = await this.ArticleExistsAsync(id);
+
+            if (!articleExists)
+            {
+                return null;
+            }
+
+            return await this.db
+                 .Articles
+                 .Where(a => a.Id == id)
+                 .ProjectTo<DetailedArticleViewModel>()
+                 .FirstOrDefaultAsync();
+
+        }
+
 
         private async Task<bool> ArticleExistsAsync(int id)
         {
             return await this.db.Articles.AnyAsync(a => a.Id == id);
         }
-        
+
 
     }
 }

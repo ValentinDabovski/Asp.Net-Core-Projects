@@ -1,4 +1,6 @@
-﻿namespace LearningSystem.Models
+﻿using System.ComponentModel.Design.Serialization;
+
+namespace LearningSystem.Models
 {
     public static class DataConstats
     {
@@ -11,6 +13,8 @@
         public const int CourseNameMaxLength = 50;
 
         public const int CourseDescriptionMaxLength = 2000;
+
+        public const int ArticlePageSize = 3;
 
 
     }
