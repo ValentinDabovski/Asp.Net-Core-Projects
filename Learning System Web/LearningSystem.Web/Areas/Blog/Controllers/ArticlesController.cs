@@ -1,18 +1,16 @@
-﻿using Microsoft.AspNetCore.Authorization;
-
-namespace LearningSystem.Web.Areas.Blog.Controllers
+﻿namespace LearningSystem.Web.Areas.Blog.Controllers
 {
-    using System.Threading.Tasks;
+    using Infrastructure.Extensions;
+    using Microsoft.AspNetCore.Authorization;
+    using Microsoft.AspNetCore.Identity;
+    using Microsoft.AspNetCore.Mvc;
     using Models.BindingModels.Blog;
     using Models.DataModels;
-    using Services.Blog.Inetrfaces;
-    using Web.Controllers;
-    using Microsoft.AspNetCore.Identity;
-    using Infrastructure.Extensions;
-    using Microsoft.AspNetCore.Mvc;
     using Models.ViewModels.Blog;
+    using Services.Blog.Inetrfaces;
     using Services.Html;
-
+    using System.Threading.Tasks;
+    using Web.Controllers;
     using static Common.Constants.WebConstants;
 
     [Area(BlogArea)]

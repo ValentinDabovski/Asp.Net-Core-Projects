@@ -1,26 +1,23 @@
 ﻿namespace LearningSystem.Web.Controllers
 {
     using Microsoft.AspNetCore.Mvc;
+    using Services.StudentCourses.Interfaces;
+    using System.Threading.Tasks;
 
     public class HomeController : Controller
     {
-        public IActionResult Index()
+        private readonly IStudentCourseServiceController service;
+
+        public HomeController(IStudentCourseServiceController service)
         {
-            return View();
+            this.service = service;
         }
 
-        public IActionResult About()
+        public async Task<IActionResult>  Index()
         {
-            ViewData["Message"] = "Your application description page.";
+            var allCourses = await this.service.AllCoursesAsync();
 
-            return View();
-        }
-
-        public IActionResult Contact()
-        {
-            ViewData["Message"] = "Your contact page.";
-
-            return View();
+            return View(allCourses);
         }
     }
 }

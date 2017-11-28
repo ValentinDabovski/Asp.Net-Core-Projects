@@ -1,17 +1,13 @@
-﻿using LearningSystem.Models.BindingModels.Admin;
-using LearningSystem.Models.ViewModels.Admin.Users;
-using Microsoft.AspNetCore.Html;
-
-namespace LearningSystem.Web.Areas.Admin.Controllers
+﻿namespace LearningSystem.Web.Areas.Admin.Controllers
 {
     using Infrastructure.Extensions;
     using Microsoft.AspNetCore.Identity;
     using Microsoft.AspNetCore.Mvc;
     using Microsoft.AspNetCore.Mvc.Rendering;
     using Microsoft.EntityFrameworkCore;
-
+    using Models.BindingModels.Admin;
     using Models.DataModels;
-    using Models.ViewModels.Admin;
+    using Models.ViewModels.Admin.Users;
     using Services.Admin.Interfaces;
     using System.Linq;
     using System.Threading.Tasks;

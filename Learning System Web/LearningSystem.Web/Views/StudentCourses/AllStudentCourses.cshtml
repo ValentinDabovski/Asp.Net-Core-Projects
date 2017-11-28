@@ -1,0 +1,63 @@
+﻿@model  IEnumerable<StudentAllCoursesViewModel>
+
+@{
+
+    ViewData["Title"] = "AllStudentCourses";
+}
+
+<h1 class="text-info">My Courses</h1>
+<br />
+@if (Model.Any())
+{
+    <div class="row">
+        @foreach (var course in Model)
+        {
+            <div class="col-md-4">
+                <div class="panel panel-primary">
+                    <div class="panel-heading">
+                        @course.Name
+                    </div>
+                    <div class="panel-body">
+                        @if (DateTime.UtcNow < course.StartDate)
+                        {
+                            <p>Start Date: @course.StartDate.ToShortDateString()</p>
+                            <p>Trainer: <b>@course.TrainerName</b></p>
+                            <p class="text-info">You can still sign out before the starting date</p>
+                            <form class="form-group" asp-controller="StudentCourses" asp-action="SignOutStudent" method="post">
+                                <input name="id" asp-for="@course.Id" type="hidden" value="@course.Id" />
+                                <input type="submit" class="btn btn-sm btn-danger" value="Sign Out" />
+                            </form>
+                        
+                        }
+                        else
+                        {
+                            <p>Course has started</p>
+                        }
+
+                    </div>
+                    <div class="panel-footer">
+                        @if (DateTime.UtcNow < course.EndtDate)
+                        {
+                            <p>End Date: @course.EndtDate.ToShortDateString()</p>
+                        }
+                        else
+                        {
+                            <p>Course has finished</p>
+                        }
+                    </div>
+                </div>
+            </div>
+        }
+
+    </div>
+}
+else
+{
+    <div class="jumbotron">
+        <div>
+            <h2 class="text-info">You are not signed up for any courses.</h2>
+        </div>
+    </div>    
+}
+
+

@@ -42,7 +42,7 @@ namespace LearningSystem.Web
 
             //services.AddTransient<IEmailSender, EmailSender>();
 
-           
+
 
             services.AddAutoMapper();
 
@@ -79,13 +79,20 @@ namespace LearningSystem.Web
 
             app.UseAuthentication();
 
-            
+
             app.UseMvc(routes =>
             {
+               
+
                 routes.MapRoute(
-                    name:"blog",
+                    name: "course",
+                    template: "admin/courses/{action}/{id?}",
+                    defaults: new { area = "Admin", controller = "AdminCourses", action = "All" });
+
+                routes.MapRoute(
+                    name: "blog",
                     template: "blog/articles/{id}/{title}",
-                    defaults: new {area="Blog", controller = "Articles", action = "Details"}
+                    defaults: new { area = "Blog", controller = "Articles", action = "Details" }
                 );
 
                 routes.MapRoute(

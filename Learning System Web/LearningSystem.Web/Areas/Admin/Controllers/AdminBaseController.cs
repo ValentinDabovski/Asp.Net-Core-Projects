@@ -1,10 +1,8 @@
-﻿using LearningSystem.Common.Constants;
-
-namespace LearningSystem.Web.Areas.Admin.Controllers
+﻿namespace LearningSystem.Web.Areas.Admin.Controllers
 {
     using Microsoft.AspNetCore.Authorization;
     using Microsoft.AspNetCore.Mvc;
-    using static WebConstants;
+    using static Common.Constants.WebConstants;
 
     [Area(AdminArea)]
     [Authorize(Roles = AdministratorRole)]
