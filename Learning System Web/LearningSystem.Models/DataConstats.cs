@@ -1,7 +1,6 @@
-﻿using System.ComponentModel.Design.Serialization;
-
-namespace LearningSystem.Models
+﻿namespace LearningSystem.Models
 {
+
     public static class DataConstats
     {
         public const int ArticleTitleMinLength = 3;
@@ -15,7 +14,6 @@ namespace LearningSystem.Models
         public const int CourseDescriptionMaxLength = 2000;
 
         public const int ArticlePageSize = 3;
-
-
+        
     }
 }

@@ -1,7 +1,43 @@
 ﻿
+@model IEnumerable<TrainerAllCourses>
 @{
     ViewData["Title"] = "All";
 }
 
-<h2>All</h2>
+<h2>Your Courses</h2>
 
+
+<table class="table table-bordered table-hover">
+    <thead>
+        <tr>
+            <th>Course Name</th>
+            <th>Start Date</th>
+            <th>End Date</th>
+            <th>Students</th>
+        </tr>
+    </thead>
+    <tbody>
+        @{
+            foreach (var course in Model)
+            {
+                <tr>
+                    <td>@course.Name</td>
+                    <td>@course.StartDate.ToShortDateString()</td>
+                    <td>@course.EndtDate.ToShortDateString()</td>
+                    <td>@(course.StudentsCount.ToCountStudentsString()) </td>
+                    <td>
+                        <form asp-controller="TrainerCourses" asp-action="ManageStudents" method="get">
+                                @Html.AntiForgeryToken()
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <input type="hidden" name="id" value="@course.Id"/>
+                                        <input type="submit" class="btn btn-sm btn-default" value="Manage Students"/>
+                                    </div>
+                                </div>
+                            </form>
+                    </td>
+                </tr>
+            }
+        }
+    </tbody>
+</table>

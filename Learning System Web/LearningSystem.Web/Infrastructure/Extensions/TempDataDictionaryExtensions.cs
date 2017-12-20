@@ -1,5 +1,4 @@
 ﻿using LearningSystem.Common.Constants;
-using Microsoft.AspNetCore.Html;
 
 namespace LearningSystem.Web.Infrastructure.Extensions
 {

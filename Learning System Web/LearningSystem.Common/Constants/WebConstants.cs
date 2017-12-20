@@ -11,5 +11,6 @@
 
         public const string AdminArea = "Admin";
         public const string BlogArea = "Blog";
+        public const string TrainerArea = "Trainer";
     }
 }

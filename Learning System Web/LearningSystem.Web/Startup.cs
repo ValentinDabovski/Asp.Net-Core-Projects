@@ -1,6 +1,4 @@
-﻿using Microsoft.AspNetCore.Mvc;
-
-namespace LearningSystem.Web
+﻿namespace LearningSystem.Web
 {
     using AutoMapper;
     using Data;
@@ -8,10 +6,12 @@ namespace LearningSystem.Web
     using Microsoft.AspNetCore.Builder;
     using Microsoft.AspNetCore.Hosting;
     using Microsoft.AspNetCore.Identity;
+    using Microsoft.AspNetCore.Mvc;
     using Microsoft.EntityFrameworkCore;
     using Microsoft.Extensions.Configuration;
     using Microsoft.Extensions.DependencyInjection;
     using Models.DataModels;
+
 
     public class Startup
     {
@@ -82,10 +82,14 @@ namespace LearningSystem.Web
 
             app.UseMvc(routes =>
             {
-               
 
                 routes.MapRoute(
-                    name: "course",
+                    name: "trainerCourses",
+                    template: "trainer/courses/{action}/{id?}",
+                    defaults: new { area = "Trainer", controller = "TrainerCourses", action = "All" });
+
+                routes.MapRoute(
+                    name: "adminCourses",
                     template: "admin/courses/{action}/{id?}",
                     defaults: new { area = "Admin", controller = "AdminCourses", action = "All" });
 

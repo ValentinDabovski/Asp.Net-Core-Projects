@@ -1,4 +1,6 @@
-﻿namespace LearningSystem.Web.Controllers
+﻿using LearningSystem.Web.Areas.Trainer.Controllers;
+
+namespace LearningSystem.Web.Controllers
 {
     using Microsoft.AspNetCore.Mvc;
     using System.Threading.Tasks;
@@ -7,8 +9,9 @@
     using Microsoft.AspNetCore.Authorization;
     using Microsoft.AspNetCore.Identity;
     using Infrastructure.Extensions;
+    using static Common.Constants.WebConstants;
 
-    
+
     [Authorize]
     [Route("students/courses")]
     public class StudentCoursesController : Controller
@@ -27,6 +30,13 @@
         public async Task<IActionResult> AllStudentCourses()
         {
             var studentId = this.userManager.GetUserId(this.User);
+            var user = await this.userManager.FindByIdAsync(studentId);
+            var userIsInTrainerRole = await this.userManager.IsInRoleAsync(user, TrainerRole);
+
+            if (userIsInTrainerRole)
+            {
+                return RedirectToAction(nameof(TrainerCoursesController.All), "TrainerCourses", new { area = "Trainer" });
+            }
 
             var studentAllCourses = await this.service.StudentAllCoursesAsync(studentId);
 

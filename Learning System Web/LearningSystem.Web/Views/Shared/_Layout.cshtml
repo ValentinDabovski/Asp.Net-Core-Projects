@@ -48,7 +48,22 @@
                             </ul>
                         </li>
                     }
-                    
+
+                    @if (User.IsInRole(WebConstants.TrainerRole))
+                    {
+                        <li class="dropdown">
+                            <a href="#" data-toggle="dropdown"
+                               class="dropdown-toggle">Trainings<b class="caret"></b></a>
+                            <ul role="menu" class="dropdown-menu">
+                                <li><a asp-area="Trainer" asp-controller="TrainerCourses" asp-action="All" tabindex="-1">All Trainigs</a></li>
+                                @*<li><a asp-area="Trainer" asp-controller="TrainerCourses" asp-action="All" as tabindex="-1">All Courses</a></li>*@
+                                @*<li><a tabindex="-1" href="#">Something else here </a></li>
+                                    <li class="divider"></li>
+                                    <li><a tabindex="-1" href="#"> Separated link </a></li>*@
+                            </ul>
+                        </li>
+                    }
+
                     @if (User.IsInRole(WebConstants.BlogAuthorRole) || User.IsInRole(WebConstants.AdministratorRole))
                     {
                         <li class="dropdown">
@@ -66,7 +81,7 @@
                     else
                     {
                         <li>
-                            <a  asp-area="Blog" asp-controller="Articles" asp-action="All">Blog</a>
+                            <a asp-area="Blog" asp-controller="Articles" asp-action="All">Blog</a>
                         </li>
                     }
                 </ul>

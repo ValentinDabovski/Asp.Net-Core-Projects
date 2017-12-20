@@ -1,5 +1,4 @@
-﻿
-namespace LearningSystem.Models.DataModels
+﻿namespace LearningSystem.Models.DataModels
 {
     using Microsoft.AspNetCore.Identity;
     using System;
